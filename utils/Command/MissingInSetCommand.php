@@ -25,7 +25,6 @@ final class MissingInSetCommand extends Command
     ];
 
     /**
-     * @see https://regex101.com/r/HuWjgn/1
      * @var string
      */
     private const SHORT_CLASS_REGEX = '#(?<short_class_name>\w+)::class#m';
@@ -64,7 +63,7 @@ final class MissingInSetCommand extends Command
     }
 
     /**
-     * @return string[]
+     * @return mixed[]
      */
     private function resolveShortClassesFromSetFile(string $setFile): array
     {

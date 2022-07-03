@@ -10,7 +10,6 @@ final class Unprefixer
 {
     /**
      * @var string
-     * @see https://regex101.com/r/P8sXfr/1
      */
     private const QUOTED_VALUE_REGEX = '#\'\\\\(\w|@)#';
 
