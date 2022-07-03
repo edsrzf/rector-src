@@ -167,8 +167,7 @@ final class BetterStandardPrinter extends Standard implements NodePrinterInterfa
      */
     protected function setIndentLevel(int $level): void
     {
-        $level = max($level, 0);
-        $this->indentLevel = $level;
+        $this->indentLevel = max($level, 0);
         $this->nl = "\n" . str_repeat($this->tabOrSpaceIndentCharacter, $level);
     }
 

@@ -337,12 +337,10 @@ final class PhpDocInfo
         $paramTypesByName = [];
 
         foreach ($this->phpDocNode->getParamTagValues() as $paramTagValueNode) {
-            $parameterType = $this->staticTypeMapper->mapPHPStanPhpDocTypeToPHPStanType(
+            $paramTypesByName[$paramTagValueNode->parameterName] = $this->staticTypeMapper->mapPHPStanPhpDocTypeToPHPStanType(
                 $paramTagValueNode,
                 $this->node
             );
-
-            $paramTypesByName[$paramTagValueNode->parameterName] = $parameterType;
         }
 
         return $paramTypesByName;

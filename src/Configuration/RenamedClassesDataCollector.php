@@ -29,8 +29,7 @@ final class RenamedClassesDataCollector
     public function addOldToNewClasses(array $oldToNewClasses): void
     {
         /** @var array<string, string> $oldToNewClasses */
-        $oldToNewClasses = [...$this->oldToNewClasses, ...$oldToNewClasses];
-        $this->oldToNewClasses = $oldToNewClasses;
+        $this->oldToNewClasses = [...$this->oldToNewClasses, ...$oldToNewClasses];
     }
 
     /**

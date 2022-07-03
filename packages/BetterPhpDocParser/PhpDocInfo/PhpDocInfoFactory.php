@@ -57,6 +57,7 @@ final class PhpDocInfoFactory
 
     public function createFromNode(Node $node): ?PhpDocInfo
     {
+        $phpDocInfo = null;
         $objectHash = spl_object_hash($node);
         if (isset($this->phpDocInfosByObjectHash[$objectHash])) {
             return $this->phpDocInfosByObjectHash[$objectHash];
@@ -83,8 +84,7 @@ final class PhpDocInfoFactory
             $this->setPositionOfLastToken($phpDocNode);
         }
 
-        $phpDocInfo = $this->createFromPhpDocNode($phpDocNode, $tokenIterator, $node);
-        $this->phpDocInfosByObjectHash[$objectHash] = $phpDocInfo;
+        $this->phpDocInfosByObjectHash[$objectHash] = $this->createFromPhpDocNode($phpDocNode, $tokenIterator, $node);
 
         return $phpDocInfo;
     }

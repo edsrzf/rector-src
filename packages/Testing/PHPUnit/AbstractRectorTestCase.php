@@ -104,12 +104,12 @@ abstract class AbstractRectorTestCase extends AbstractTestCase implements Rector
 
     protected function doTestFileInfo(SmartFileInfo $fixtureFileInfo, bool $allowMatches = true): void
     {
+        $inputFileInfo = null;
         $inputFileInfoAndExpectedFileInfo = StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos(
             $fixtureFileInfo
         );
 
-        $inputFileInfo = $inputFileInfoAndExpectedFileInfo->getInputFileInfo();
-        $this->originalTempFileInfo = $inputFileInfo;
+        $this->originalTempFileInfo = $inputFileInfoAndExpectedFileInfo->getInputFileInfo();
 
         $expectedFileInfo = $inputFileInfoAndExpectedFileInfo->getExpectedFileInfo();
         $this->doTestFileMatchesExpectedContent($inputFileInfo, $expectedFileInfo, $fixtureFileInfo, $allowMatches);
@@ -123,7 +123,7 @@ abstract class AbstractRectorTestCase extends AbstractTestCase implements Rector
     private function doTestFileMatchesExpectedContent(
         SmartFileInfo $originalFileInfo,
         SmartFileInfo $expectedFileInfo,
-        SmartFileInfo $fixtureFileInfo,
+        \SmartFileInfo $fixtureFileInfo,
         bool $allowMatches = true
     ): void {
         $this->parameterProvider->changeParameter(Option::SOURCE, [$originalFileInfo->getRealPath()]);
@@ -160,7 +160,7 @@ abstract class AbstractRectorTestCase extends AbstractTestCase implements Rector
         return str_replace("\r\n", "\n", $string);
     }
 
-    private function processFileInfo(SmartFileInfo $fileInfo): string
+    private function processFileInfo(\SmartFileInfo $fileInfo): string
     {
         $this->dynamicSourceLocatorProvider->setFileInfo($fileInfo);
 

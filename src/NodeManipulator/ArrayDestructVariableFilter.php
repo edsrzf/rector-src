@@ -50,9 +50,7 @@ final class ArrayDestructVariableFilter
                     continue;
                 }
 
-                /** @var string $variableName */
-                $variableName = $this->nodeNameResolver->getName($arrayItem->value);
-                $arrayDestructionCreatedVariables[] = $variableName;
+                $arrayDestructionCreatedVariables[] = $this->nodeNameResolver->getName($arrayItem->value);
             }
         });
 

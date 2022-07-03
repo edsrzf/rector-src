@@ -136,8 +136,10 @@ final class ArrayTypeMapper implements TypeMapperInterface
     ): SpacingAwareArrayTypeNode {
         $unionedArrayType = [];
         foreach ($unionType->getTypes() as $unionedType) {
-            $typeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($unionedType, $typeKind);
-            $unionedArrayType[(string) $typeNode] = $typeNode;
+            $unionedArrayType[(string) $typeNode] = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode(
+                $unionedType,
+                $typeKind
+            );
         }
 
         if (count($unionedArrayType) > 1) {

@@ -87,6 +87,7 @@ final class AstResolver
 
     public function resolveClassMethodFromMethodReflection(MethodReflection $methodReflection): ?ClassMethod
     {
+        $classMethod = null;
         $classReflection = $methodReflection->getDeclaringClass();
 
         if (isset($this->classMethodsByClassAndMethod[$classReflection->getName()][$methodReflection->getName()])) {
@@ -112,8 +113,9 @@ final class AstResolver
             return null;
         }
 
-        $classMethod = $class->getMethod($methodReflection->getName());
-        $this->classMethodsByClassAndMethod[$classReflection->getName()][$methodReflection->getName()] = $classMethod;
+        $this->classMethodsByClassAndMethod[$classReflection->getName()][$methodReflection->getName()] = $class->getMethod(
+            $methodReflection->getName()
+        );
 
         return $classMethod;
     }
@@ -280,16 +282,14 @@ final class AstResolver
 
     private function locateClassMethodInTrait(string $methodName, MethodReflection $methodReflection): ?ClassMethod
     {
+        $classMethod = null;
         $classReflection = $methodReflection->getDeclaringClass();
         $traits = $this->parseClassReflectionTraits($classReflection);
 
-        /** @var ClassMethod|null $classMethod */
-        $classMethod = $this->betterNodeFinder->findFirst(
+        $this->classMethodsByClassAndMethod[$classReflection->getName()][$methodName] = $this->betterNodeFinder->findFirst(
             $traits,
             fn (Node $node): bool => $node instanceof ClassMethod && $this->nodeNameResolver->isName($node, $methodName)
         );
-
-        $this->classMethodsByClassAndMethod[$classReflection->getName()][$methodName] = $classMethod;
         if ($classMethod instanceof ClassMethod) {
             return $classMethod;
         }
