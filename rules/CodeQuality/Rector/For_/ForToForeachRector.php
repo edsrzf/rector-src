@@ -169,8 +169,7 @@ CODE_SAMPLE
     private function createForeachFromForWithIteratedVariableSingle(
         \For_ $for,
         string $iteratedVariableSingle
-    ): Foreach_
-    {
+    ): Foreach_ {
         $foreach = $this->foreachFactory->createFromFor(
             $for,
             $iteratedVariableSingle,
