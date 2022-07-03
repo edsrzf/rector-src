@@ -63,18 +63,18 @@ final class ShortNameResolver
     }
 
     /**
-     * @return array<string, string>
+     * @return array<string, string>|null
      */
-    public function resolveFromFile(File $file): array
+    public function resolveFromFile(File $file): ?array
     {
+        $shortNamesToFullyQualifiedNames = null;
         $filePath = $file->getFilePath();
 
         if (isset($this->shortNamesByFilePath[$filePath])) {
             return $this->shortNamesByFilePath[$filePath];
         }
 
-        $shortNamesToFullyQualifiedNames = $this->resolveForStmts($file->getNewStmts());
-        $this->shortNamesByFilePath[$filePath] = $shortNamesToFullyQualifiedNames;
+        $this->shortNamesByFilePath[$filePath] = $this->resolveForStmts($file->getNewStmts());
 
         return $shortNamesToFullyQualifiedNames;
     }
@@ -138,8 +138,7 @@ final class ShortNameResolver
                 return null;
             }
 
-            $fullyQualifiedName = $this->nodeNameResolver->getName($node);
-            $shortNamesToFullyQualifiedNames[$originalName->toString()] = $fullyQualifiedName;
+            $shortNamesToFullyQualifiedNames[$originalName->toString()] = $this->nodeNameResolver->getName($node);
 
             return null;
         });

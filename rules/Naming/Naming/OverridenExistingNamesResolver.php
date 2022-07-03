@@ -87,9 +87,9 @@ final class OverridenExistingNamesResolver
         }
 
         $currentlyUsedNames = array_values($currentlyUsedNames);
-        $currentlyUsedNames = $this->arrayFilter->filterWithAtLeastTwoOccurences($currentlyUsedNames);
-
-        $this->overridenExistingVariableNamesByClassMethod[$classMethodHash] = $currentlyUsedNames;
+        $this->overridenExistingVariableNamesByClassMethod[$classMethodHash] = $this->arrayFilter->filterWithAtLeastTwoOccurences(
+            $currentlyUsedNames
+        );
 
         return $currentlyUsedNames;
     }

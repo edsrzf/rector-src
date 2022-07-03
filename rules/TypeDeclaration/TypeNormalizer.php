@@ -43,8 +43,7 @@ final class TypeNormalizer
             $unionType = $constantArrayType->getItemType();
             foreach ($unionType->getTypes() as $unionedType) {
                 if ($unionedType instanceof ConstantStringType) {
-                    $stringType = new StringType();
-                    $nonConstantValueTypes[$stringType::class] = $stringType;
+                    $nonConstantValueTypes[$stringType::class] = new StringType();
                 } elseif ($unionedType instanceof ObjectType) {
                     $nonConstantValueTypes[] = $unionedType;
                 } else {

@@ -87,8 +87,7 @@ CODE_SAMPLE
 
         foreach ($args as $key => $arg) {
             $assign = new Assign($arrayDimFetch, $arg->value);
-            $assignExpression = new Expression($assign);
-            $newStmts[] = $assignExpression;
+            $newStmts[] = new Expression($assign);
 
             // keep comments of first line
             if ($key === 0) {

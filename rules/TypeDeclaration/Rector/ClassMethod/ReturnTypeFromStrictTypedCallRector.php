@@ -134,8 +134,7 @@ CODE_SAMPLE
         if ($this->phpVersionProvider->isAtLeastPhpVersion(PhpVersionFeature::UNION_TYPES)) {
             /** @var PhpParserUnionType[] $returnedStrictTypes */
             $unwrappedTypes = $this->typeNodeUnwrapper->unwrapNullableUnionTypes($returnedStrictTypes);
-            $returnType = new PhpParserUnionType($unwrappedTypes);
-            $node->returnType = $returnType;
+            $node->returnType = new PhpParserUnionType($unwrappedTypes);
             return $node;
         }
 
@@ -181,11 +180,9 @@ CODE_SAMPLE
         NullableType $nullableType
     ): Closure | ClassMethod | Function_ {
         $types = $unionType->getTypes();
-        $returnType = $types[0] instanceof ObjectType && $types[1] instanceof NullType
+        $node->returnType = $types[0] instanceof ObjectType && $types[1] instanceof NullType
             ? new NullableType(new FullyQualified($types[0]->getClassName()))
             : $nullableType;
-
-        $node->returnType = $returnType;
         return $node;
     }
 
@@ -229,12 +226,9 @@ CODE_SAMPLE
             return $this->processSingleUnionType($functionLike, $resolvedType, $returnedStrictTypeNode);
         }
 
-        /** @var Name $returnType */
-        $returnType = $resolvedType instanceof ObjectType
+        $functionLike->returnType = $resolvedType instanceof ObjectType
             ? new FullyQualified($resolvedType->getClassName())
             : $returnedStrictTypeNode;
-
-        $functionLike->returnType = $returnType;
 
         return $functionLike;
     }

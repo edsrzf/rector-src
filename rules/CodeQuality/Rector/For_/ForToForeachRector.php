@@ -145,8 +145,8 @@ CODE_SAMPLE
 
     private function processForToForeach(For_ $for, string $iteratedVariable): ?Foreach_
     {
-        $originalVariableSingle = $this->inflector->singularize($iteratedVariable);
-        $iteratedVariableSingle = $originalVariableSingle;
+        $originalVariableSingle = null;
+        $iteratedVariableSingle = $this->inflector->singularize($iteratedVariable);
         if ($iteratedVariableSingle === $iteratedVariable) {
             $iteratedVariableSingle = 'single' . ucfirst($iteratedVariableSingle);
         }
@@ -166,7 +166,10 @@ CODE_SAMPLE
         return null;
     }
 
-    private function createForeachFromForWithIteratedVariableSingle(For_ $for, string $iteratedVariableSingle): Foreach_
+    private function createForeachFromForWithIteratedVariableSingle(
+        \For_ $for,
+        string $iteratedVariableSingle
+    ): Foreach_
     {
         $foreach = $this->foreachFactory->createFromFor(
             $for,

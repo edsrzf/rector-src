@@ -19,10 +19,11 @@ final class ClassConstantsResolver
     }
 
     /**
-     * @return array<string, mixed>
+     * @return array<string, mixed>|null
      */
-    public function getClassConstantNamesToValues(string $classWithConstants): array
+    public function getClassConstantNamesToValues(string $classWithConstants): ?array
     {
+        $constantNamesToValues = null;
         if (isset($this->cachedConstantNamesToValues[$classWithConstants])) {
             return $this->cachedConstantNamesToValues[$classWithConstants];
         }
@@ -34,8 +35,7 @@ final class ClassConstantsResolver
         $classReflection = $this->reflectionProvider->getClass($classWithConstants);
         $nativeReflection = $classReflection->getNativeReflection();
 
-        $constantNamesToValues = $nativeReflection->getConstants();
-        $this->cachedConstantNamesToValues = $constantNamesToValues;
+        $this->cachedConstantNamesToValues = $nativeReflection->getConstants();
 
         return $constantNamesToValues;
     }

@@ -126,12 +126,13 @@ CODE_SAMPLE
     }
 
     /**
-     * @return Namespace_|Stmt[]
+     * @return Namespace_|Stmt[]|null
      */
     private function refactorFileWithoutNamespace(
         FileWithoutNamespace $fileWithoutNamespace,
         string $expectedNamespace
-    ): Namespace_|array {
+    ): ?array {
+        $namespace = null;
         $nodes = $fileWithoutNamespace->stmts;
 
         $declare = null;
@@ -148,8 +149,7 @@ CODE_SAMPLE
             }
         }
 
-        $namespace = new Namespace_(new Name($expectedNamespace), $nodes);
-        $nodesWithStrictTypesThenNamespace[] = $namespace;
+        $nodesWithStrictTypesThenNamespace[] = new Namespace_(new Name($expectedNamespace), $nodes);
 
         $this->fullyQualifyStmtsAnalyzer->process($nodes);
 

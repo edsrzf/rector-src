@@ -20,7 +20,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RemoveJustVariableAssignRector extends AbstractRector
 {
     public function __construct(
-        private VariableAnalyzer $variableAnalyzer
+        private readonly VariableAnalyzer $variableAnalyzer
     ) {
     }
 
